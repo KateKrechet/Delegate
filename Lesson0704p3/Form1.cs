@@ -12,60 +12,22 @@ namespace Lesson0704p3
 {
     public partial class Form1 : Form
     {
-        delegate void Way();
-        Way myWay;
-
-
+        List<ButtonMove> buttonMove;
         public Form1()
         {
             InitializeComponent();
-            myWay = new Way(Left);
+            buttonMove = new List<ButtonMove>()
+            {
+                new ButtonMove(button1,this),
+                new ButtonMove(button2,this),
+            };
         }
 
-        void Left()
-        {
-            button1.Left += 5;
-        }
-        void Down()
-        {
-            button1.Top += 5;
-        }
-        void Right()
-        {
-            button1.Left -= 5;
-        }
-        void Up()
-        {
-            button1.Top -= 5;
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (button1.Left > Width - button1.Width-45)
-            {
-                button1.Left = Width - button1.Width-45;
-                myWay = new Way(Down);
-
-            }
-            
-            if (button1.Top > Height - button1.Height - 45)
-            {
-                button1.Top = Height - button1.Height - 45;
-                myWay = new Way(Right);
-            }
-
-            if (button1.Left <0)
-            {
-                button1.Left =0;
-                myWay = new Way(Up);
-
-            }
-            if(button1.Top<15)//0-под самый верх
-            {
-                button1.Top = 15;
-                myWay = new Way(Left);
-            }
-            myWay();
+            for(int i=0;i<buttonMove.Count;i++)
+            buttonMove[i].Run();
         }
         private void button1_Click(object sender, EventArgs e)
         {
